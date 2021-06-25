@@ -1,0 +1,629 @@
+@font-face {
+    font-family: "FF Meta";
+    src: url("./assets/meta-normal.ttf");
+}
+
+body {
+    font-family: "FF Meta";
+}
+
+
+/*--------------------------- Promo Bar -------------------------*/
+.promo-banner {
+    position: relative;
+    color: #ffffff;
+    background-color: #e22d00;
+    cursor: pointer;
+    height: 100%;
+}
+
+.promo-banner-text {
+    font-weight: 500;
+    letter-spacing: -0.2px;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+}
+
+.promo-banner-close {
+    display: inline-block;
+    text-align: center;
+    vertical-align: center;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
+    opacity: 0.6;
+    padding: 8px;
+    position: absolute;
+    right: 6px;
+    top: 6px;
+    font-weight: 500;
+    transition: opacity 0.4s ease;
+}
+
+.promo-banner-close:hover {
+    opacity: 1;
+}
+
+
+/*--------------------------- Notification Bar -------------------------*/
+.notif-bar {
+    display: flex;
+    padding: 0.5% 5% 0.5% 5%;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: rgb(37, 37, 37);
+    background-color: rgb(235, 235, 235);
+    border-top: 1px solid lightgrey;
+}
+
+.notif-info {
+    text-decoration: underline;
+    width: 33.33%;
+    text-align: center;
+}
+
+.support {
+    text-align: right;
+    width: 33.33%;
+}
+
+
+/*--------------------------- Navigation Bar -------------------------*/
+.naviBar {
+    height: 7%;
+    padding: 1.5% 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    color: rgb(37, 37, 37);
+}
+
+.naviBarLeft {
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    /*justify-content: space-between;*/
+}
+
+.logo {
+    width: 35%;
+    cursor: pointer;
+}
+
+.search {
+    margin-left: 7%;
+    width: 45%;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    vertical-align: center;
+}
+
+.searchBar {
+    width: 75%;
+    height: 100%;
+    border: none;
+    font-family: "FF Meta";
+}
+
+input:focus{
+    outline: none;
+}
+
+::placeholder {
+    color: rgba(128, 128, 128, 1);
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "FF Meta";
+}
+
+.naviBarCenter {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(128, 128, 128, 0.9);
+}
+
+.navi-span:hover {
+    height: 100%;
+    border-bottom: 1px solid rgb(37, 37, 37);
+    cursor: pointer;
+}
+
+.naviBarRight {
+    width: 10%;
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.itemNum {
+    color: cadetblue;
+    padding-left: 5px;
+    font-weight: bold;
+}
+
+
+/*--------------------------- Office Chair List Page -------------------------*/
+.contentHeader {
+    display: flex;
+    flex-direction: column;
+    padding: 1% 5%;
+}
+
+.listCategory {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: "FF Meta";
+    color: rgba(128, 128, 128, 0.9);
+}
+
+.listCategory:hover {
+    cursor: pointer;
+}
+
+h1 {
+    margin: 5% 0;
+    font-size: 70px;
+    text-align: center;
+}
+
+.optionBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.optionBarLeft {
+    width: 28%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+
+}
+
+.display-dropdown-content {
+    border: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    background-color: white;
+    padding: 20px 0 20px 10px;
+    min-width: 180px;
+    box-shadow: 3px 8px 5px 5px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.user-account-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-account-dropdown-content {
+    border: 1px solid lightgrey;
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    left: -100px;
+    background-color: white;
+    padding: 20px 0 20px 10px;
+    text-align: left;
+    min-width: 100px;
+    z-index: 1;
+    box-shadow: 1px 1px rgba(0,0,0,0.1);
+}
+
+.user-account-dropdown:hover .user-account-dropdown-content {
+    display: flex;
+}
+
+.account-btn:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.sortArea {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.sort-title {
+    font-size: 1.17em;
+    font-weight: bolder;
+}
+
+button {
+    font-family: "FF Meta";
+    font-size: 14px;
+}
+
+.close-btn {
+    text-align: center;
+    font-weight: bold;
+}
+
+.close-btn:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+input[type="checkbox"]{
+    display:none;
+}
+
+input[type="checkbox"] + label:before {
+    content: '';
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border:1px solid grey;
+    vertical-align: middle;
+    margin-right: 8px;
+    transition: all .1s;
+}
+
+input[type="checkbox"]:checked + label:before {
+    background-color: grey;
+}
+
+.sort-by {
+    height: 25px;
+    color: #616161;
+    font-size: 14px;
+    width: 140px;
+}
+
+.optionBarRight {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.chair-list {
+    width: 90%;
+    display: inline-grid;
+    justify-items: center;
+    margin: 0 5% 10% 5%;
+}
+
+.chair-list.four-columns {
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.chair-list.three-columns {
+    grid-template-columns: 33.3% 33.3% 33.3%;
+}
+
+.eachChair {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 70px;
+    width: 350px;
+}
+
+.eachChair:hover {
+    cursor: pointer;
+}
+
+.chairInfo {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.defaultChairImg {
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.defaultChairImg:hover {
+    opacity: 0;
+}
+
+.altChairImg {
+    position: absolute;
+    width: 350px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    opacity: 0;
+}
+
+.altChairImg:hover {
+    opacity: 1;
+}
+
+.chairColors {
+    display: flex;
+    flex-direction: row;
+}
+
+.foo {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin: 5px 5px 5px 0;
+    border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.white {
+    background: whitesmoke;
+}
+
+.wine {
+    background: #ae163e;
+}
+
+.midnightblue {
+    background: midnightblue;
+}
+
+.skyblue {
+    background: skyblue;
+}
+
+.black {
+    background: #282c34;
+}
+
+.grey {
+    background: grey;
+}
+
+.cartBtn {
+    width: 100px;
+    height: 40px;
+    border: 0;
+    color: white;
+    background-color: black;
+}
+
+.cartBtn:hover {
+    color: black;
+    border: 1px solid black;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.cartBtn:active {
+    color: white;
+    background-color: black;
+}
+
+
+/*--------------------------- Footer -------------------------*/
+.footer {
+    padding-bottom: 5%;
+    bottom: 0;
+    width: 100%;
+    background-color: #ebebeb;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    color: rgb(37, 37, 37);
+}
+
+.social-media {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+}
+
+.email-sign-up {
+    border: 1px solid;
+    border-radius: 5px;
+    height: 50px;
+}
+
+.email-sign-up:hover {
+    cursor: text;
+    border: 2px solid;
+    margin: -1px;
+}
+
+.email-input {
+    height: 100%;
+    width: 70%;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    text-indent: 10px;
+}
+
+.sign-up-btn {
+    height: 100%;
+    width: 30%;
+    padding: 0;
+    border: 0;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 0 5px 5px 0;
+    font-size: 16px;
+}
+
+.icons {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+/*--------------------------- Old Shopping Cart Page -------------------------*/
+.cart {
+    margin: 4% 7% 10% 7%;
+}
+
+.cartHeader {
+    margin-bottom: 2%;
+}
+
+.cartTitle {
+    margin-bottom: 1%;
+    text-align: left;
+    font-size: 60px;
+}
+
+.cartContent {
+    width: 70%;
+    border-top: 1px solid lightgrey;
+}
+
+.eachItem {
+    margin-top: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.imgThumbnail {
+    height: 200px;
+    width: 150px;
+    object-fit: cover;
+}
+
+.chairQuantity {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 25%;
+    height: 50px;
+    align-items: center;
+}
+
+.quantity {
+    width: 60px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.eachItemTotal {
+    width: 12%;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: right;
+}
+
+.plusMinusBtn {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: transparent;
+    font-size: 25px;
+    text-align: center;
+}
+
+.plusMinusBtn:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.plusMinusBtn:active {
+    color: black;
+    background-color: transparent;
+}
+
+.removeItem {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 2%;
+}
+
+.removeBtn {
+    margin-left: 60px;
+}
+
+.removeBtn:hover {
+    cursor: pointer;
+}
+
+.link {
+    text-decoration: underline;
+}
+
+.link:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.checkout {
+    margin-left: 40%;
+    width: 30%;
+    justify-content: flex-end;
+}
+
+.checkoutDetails {
+    margin: 8% 0 10% 0;
+    display: flex;
+}
+
+.checkoutLayout {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: bold;
+    gap: 25px;
+}
+
+.right {
+    text-align: right;
+}
+
+.totalAmount {
+    display: flex;
+    font-weight: bold;
+    border-top: 1px solid lightgrey;
+    font-size: 20px;
+    margin-bottom: 3%;
+}
+
+.total {
+    width: 50%;
+    margin-top: 5%;
+}
+
+.checkoutBtn {
+    border: 0;
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: black;
+}
+
+.checkoutBtn:hover {
+    background-color: lightgrey;
+    color: black;
+    cursor: pointer;
+}
