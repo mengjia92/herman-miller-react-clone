@@ -53,9 +53,8 @@ class ChairListContent extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        chairData: state.fetchChairDataReducer,
-        switchColumn: state.switchColumnNum.changeColumns,
-        cartData: state.cartReducer
+        chairData: state.fetchChairDataReducer.chairData,
+        switchColumn: state.switchColumnNumReducer.changeColumns
     }
 }
 

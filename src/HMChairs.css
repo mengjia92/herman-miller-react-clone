@@ -188,6 +188,7 @@ h1 {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 .dropdown {
@@ -298,8 +299,17 @@ input[type="checkbox"]:checked + label:before {
 .optionBarRight {
     display: flex;
     flex-direction: row;
-    align-items: center;
     gap: 15px;
+}
+
+.three-blocks-icon {
+    cursor: pointer;
+    width: 30px;
+}
+
+.four-blocks-icon {
+    width: 32px;
+    cursor: pointer;
 }
 
 .chair-list {

@@ -2,23 +2,32 @@ import React, {Component} from "react";
 import "../HMChairs.css";
 import {connect} from "react-redux";
 import {act3Columns, act4Columns} from "../actions";
+import threeBlocks from "../assets/three.svg";
+import fourBlocks from "../assets/four.svg";
 
 class ChairListHeader extends Component {
 
     state = {
         priceIsClicked: false,
-        materialIsClicked: false
+        materialIsClicked: false,
     }
 
     priceIsClicked = () => {
        this.setState({
-           priceIsClicked: !this.state.priceIsClicked
+           priceIsClicked: !this.state.priceIsClicked,
+           materialIsClicked: false
        })}
 
     materialIsClicked = () => {
         this.setState({
-            materialIsClicked: !this.state.materialIsClicked
+            materialIsClicked: !this.state.materialIsClicked,
+            priceIsClicked: false
         })}
+
+    switchColumnNum = () => {
+        const blockStatus = this.state.blockStatus;
+        this.setState({blockStatus: !blockStatus})
+    }
 
     render() {
         return (
@@ -123,11 +132,13 @@ class ChairListHeader extends Component {
 
                     <div className="optionBarRight">
                         <h4 style={{margin: "0"}}>showing 10 of 10 items</h4>
-                        <div style={{cursor: "pointer"}} onClick={this.props.act3Columns}>
-                            <i className="fas fa-th-large fa-lg"></i>
+                        <div className="three-blocks-icon" onClick={this.props.act3Columns}
+                             style={this.props.switchColumn ? {opacity: "1"} : {opacity: "0.3"}}>
+                            <img src={threeBlocks} alt="3 columns"/>
                         </div>
-                        <div style={{cursor: "pointer"}} onClick={this.props.act4Columns}>
-                            <i className="fas fa-th fa-lg"></i>
+                        <div className="four-blocks-icon" onClick={this.props.act4Columns}
+                             style={this.props.switchColumn ? {opacity: "0.3"} : {opacity: "1"}}>
+                            <img src={fourBlocks} alt="4 columns"/>
                         </div>
                     </div>
 
@@ -137,4 +148,10 @@ class ChairListHeader extends Component {
     }
 }
 
-export default connect(null, {act3Columns, act4Columns})(ChairListHeader);
+const mapStateToProps = (state) => {
+    return {
+        switchColumn: state.switchColumnNumReducer.changeColumns
+    }
+}
+
+export default connect(mapStateToProps, {act3Columns, act4Columns})(ChairListHeader);

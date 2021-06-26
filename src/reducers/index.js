@@ -2,19 +2,20 @@ import {combineReducers} from "redux";
 import {ACTION_TYPES} from "../helper";
 
 const INITIAL_STATE = {
+    chairData: [],
     changeColumns: false,
     itemsInCart: [],
     quantity: 0
 }
 
-const fetchChairDataReducer = (state=[], action) => {
+const fetchChairDataReducer = (state=INITIAL_STATE, action) => {
     if (action.type === ACTION_TYPES.FETCH_CHAIR_DATA) {
-        return [...state, ...action.payload];
+        return {...state, chairData: action.payload}
     }
     return state;
 }
 
-const switchColumnNum = (state=INITIAL_STATE, action) => {
+const switchColumnNumReducer = (state=INITIAL_STATE, action) => {
     if (action.type === ACTION_TYPES.CHANGE_COLUMN_NUM) {
         return {...state, changeColumns: action.payload};
     }
@@ -63,6 +64,6 @@ const cartReducer = (state=INITIAL_STATE, action) => {
 
 export default combineReducers({
     fetchChairDataReducer,
-    switchColumnNum,
+    switchColumnNumReducer,
     cartReducer
 })
