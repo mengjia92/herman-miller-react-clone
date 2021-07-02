@@ -1,15 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {actIncrement, actDecrement, actRemove} from "../actions";
+import "../../HMChairs.css";
+import {actIncrement, actDecrement, actRemove} from "../../actions";
+import {formatter} from "../../helper";
 
 class CartContent extends Component {
 
     render() {
-        let subtotal = this.props.calculateTotal(),
-            formatter = new Intl.NumberFormat('en-CA', {
-            style: 'currency',
-            currency: 'CAD',
-        });
+        let subtotal = this.props.calculateTotal();
 
         return (
             <div>

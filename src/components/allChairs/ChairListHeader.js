@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import "../HMChairs.css";
+import "../../HMChairs.css";
 import {connect} from "react-redux";
-import {act3Columns, act4Columns} from "../actions";
-import threeBlocks from "../assets/three.svg";
-import fourBlocks from "../assets/four.svg";
+import {act3Columns, act4Columns} from "../../actions";
+import threeBlocks from "../../assets/three.svg";
+import fourBlocks from "../../assets/four.svg";
 
 class ChairListHeader extends Component {
 

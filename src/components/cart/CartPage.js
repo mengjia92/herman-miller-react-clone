@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import CartContent from "./CartContent";
+import "../../HMChairs.css";
 
 class CartPage extends Component {
 

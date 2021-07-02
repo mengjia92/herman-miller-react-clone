@@ -1,7 +1,9 @@
 import React, {Component} from "react";
-import "../HMChairs.css";
+import "../../HMChairs.css";
 import {connect} from "react-redux";
-import {actFetchChairData, actAddToCart} from "../actions";
+import {Link} from "react-router-dom";
+import {actFetchChairData, actAddToCart} from "../../actions";
+import {formatter} from "../../helper";
 
 class ChairListContent extends Component {
 
@@ -10,22 +12,21 @@ class ChairListContent extends Component {
     }
 
     render() {
-        let formatter = new Intl.NumberFormat('en-CA', {
-            style: 'currency',
-            currency: 'CAD',
-        })
-
         return (
             <div className={this.props.switchColumn ? "chair-list three-columns" : "chair-list four-columns"}>
                 {this.props.chairData.map((item, idx) => {
                     return (
                         <div key={idx} className="eachChair">
-                            <img src={item.media.split("|")[0]}
-                                 className="defaultChairImg"
-                                 alt={item.name}/>
-                            <img src={item.media.split("|")[1]}
-                                 className="altChairImg"
-                                 alt={item.name}/>
+                            <Link to={`/product/${item.id}`}>
+                                <div className="chairImg">
+                                    <img src={item.media.split("|")[0]}
+                                         className="defaultChairImg"
+                                         alt={item.name}/>
+                                    <img src={item.media.split("|")[1]}
+                                         className="altChairImg"
+                                         alt={item.name}/>
+                                </div>
+                            </Link>
                             <div className="chairInfo">
                                 <h4 style={{margin: "0"}}>{item.name}</h4>
                                 <span>{"C" + formatter.format(item.price)}</span>
@@ -38,6 +39,7 @@ class ChairListContent extends Component {
                                     <div className="foo grey"/>
                                 </div>
                                 <span style={{color: "red"}}>Free Shipping on Everything</span>
+
                                 {/*<button className="cartBtn"*/}
                                 {/*        onClick={() => this.props.actAddToCart(item)}>*/}
                                 {/*    Add to Cart*/}
@@ -47,13 +49,14 @@ class ChairListContent extends Component {
                     )
                 })}
             </div>
+
         )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        chairData: state.fetchChairDataReducer.chairData,
+        chairData: state.fetchChairDataReducer.allChairData,
         switchColumn: state.switchColumnNumReducer.changeColumns
     }
 }

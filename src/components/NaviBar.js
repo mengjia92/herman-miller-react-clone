@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import "../HMChairs.css";
+import {Link} from "react-router-dom";
 import logo from "../assets/HMlogo.png";
-import ShoppingCart from "./ShoppingCart";
+import ShoppingCart from "./cart/ShoppingCart";
 
 class NaviBar extends Component {
     render() {
@@ -17,7 +18,9 @@ class NaviBar extends Component {
                 </div>
                 <div style={{width: "60%"}}>
                     <div className="naviBarCenter">
-                        <span className="navi-span" style={{borderBottom: "1px solid rgb(37, 37, 37)"}}>Office Chairs</span>
+                        <Link to="/" style={{color: "rgba(128, 128, 128, 0.9)", textDecoration: "none"}}>
+                            <span className="navi-span" style={{borderBottom: "1px solid rgb(37, 37, 37)"}}>Office Chairs</span>
+                        </Link>
                         <span className="navi-span">Work From Home</span>
                         <span className="navi-span">Gaming</span>
                         <span className="navi-span">Furniture</span>

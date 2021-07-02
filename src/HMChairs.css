@@ -87,7 +87,6 @@ body {
     width: 30%;
     display: flex;
     flex-direction: row;
-    /*justify-content: space-between;*/
 }
 
 .logo {
@@ -332,21 +331,21 @@ input[type="checkbox"]:checked + label:before {
     flex-direction: column;
     margin-bottom: 70px;
     width: 350px;
+    position: relative;
 }
 
 .eachChair:hover {
     cursor: pointer;
 }
 
-.chairInfo {
-    display: inline-flex;
-    flex-direction: column;
-    gap: 5px;
+.chairImg {
+    margin-bottom: 25px;
+    height: 250px;
 }
 
 .defaultChairImg {
-    object-fit: cover;
-    margin-bottom: 15px;
+    width: 350px;
+    position: absolute;
 }
 
 .defaultChairImg:hover {
@@ -356,13 +355,17 @@ input[type="checkbox"]:checked + label:before {
 .altChairImg {
     position: absolute;
     width: 350px;
-    object-fit: cover;
-    margin-bottom: 15px;
     opacity: 0;
 }
 
 .altChairImg:hover {
     opacity: 1;
+}
+
+.chairInfo {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .chairColors {
@@ -637,3 +640,208 @@ input[type="checkbox"]:checked + label:before {
     color: black;
     cursor: pointer;
 }
+
+/*--------------------------- Single Chair Page -------------------------*/
+.single-chair-container {
+    padding: 0 5% 5% 5%;
+}
+
+.bottom-cart {
+    position: fixed;
+    bottom: 0;
+    width: 94%;
+    height: 6%;
+    align-items: center;
+    padding: 0 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: 1px solid lightgrey;
+    background-color: white;
+}
+
+.bottom-cart-right {
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.plus-minus-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: transparent;
+    font-size: 25px;
+    text-align: center;
+}
+
+.plus-minus-btn:hover {
+    color: white;
+    background-color: black;
+    cursor: pointer;
+}
+
+.plus-minus-btn:active {
+    color: black;
+    background-color: transparent;
+}
+
+.new-cart-btn {
+    width: 100px;
+    height: 40px;
+    border: 0;
+    color: #ffffff;
+    background-color: #e22d00;
+}
+
+.new-cart-btn:hover {
+    cursor: pointer;
+    background-color: rgba(255,0,0,.6);
+}
+
+.single-chair-content {
+    display: flex;
+}
+
+.img-gallery {
+    display: flex;
+    flex-direction: row;
+    width: 65%;
+    height: 630px;
+    position: sticky;
+    top: 10px;
+}
+
+.img-display {
+    width: 90%;
+    margin-left: 1%;
+}
+
+.img-cover {
+    width: 90%;
+    height: 630px;
+    overflow: hidden;
+}
+
+.img-display-selected {
+    width: 100%;
+    cursor: zoom-in;
+}
+
+.img-thumbnails {
+    display: flex;
+    flex-direction: column ;
+    width: 10%;
+    gap: 5px;
+}
+
+.each-thumbnail {
+    text-align: center;
+    cursor: pointer;
+}
+
+.more-btn {
+    margin: 5px 0 0 3px;
+    border: 0;
+    font-size: 12px;
+    width: 90%;
+    height: 35px;
+    color: white;
+    background-color: black;
+}
+
+.more-btn:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.single-chair-info {
+    position: relative;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.single-chair-name {
+    font-weight: bold;
+    font-size: 34px;
+}
+
+.production-description {
+    padding: 0 2% 3% 2%;
+    border-top: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+}
+
+.description-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 3% 0;
+}
+
+.description-summary {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.key-features-list {
+    padding-left: 0;
+    margin: 0;
+    font-size: 16px;
+    line-height: 2;
+}
+
+.ratings {
+    display: flex;
+    flex-direction: row;
+}
+
+.warranty-term {
+    font-weight: bold;
+    padding: 5px 0;
+    font-size: 18px;
+}
+
+.profile-categories {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+}
+
+.profile-categories-title {
+    padding: 15px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 20px;
+    margin: 20px 0 5px 0;
+}
+
+.selectable {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    float: none;
+    width: 100%;
+    height: 70px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.single-chair-page-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-decoration: underline;
+    color: rgba(128, 128, 128, 0.9);
+    font-size: 18px;
+}
+

@@ -11,6 +11,16 @@ export const actFetchChairData = () => {
     }
 }
 
+export const actFetchSingleChair = (id) => {
+    return async dispatch => {
+        let res = await axios.get(`${BASE_URL}/${id}`);
+        dispatch ({
+            type: ACTION_TYPES.FETCH_SINGLE_CHAIR,
+            payload: res.data.data
+        })
+    }
+}
+
 export const actAddToCart = (item) => {
     return {
         type: ACTION_TYPES.ADD_TO_CART,
