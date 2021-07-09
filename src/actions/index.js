@@ -21,10 +21,24 @@ export const actFetchSingleChair = (id) => {
     }
 }
 
+export const act4Columns = () => {
+    return {
+        type: ACTION_TYPES.CHANGE_COLUMN_NUM,
+        payload: false
+    }
+}
+
+export const act3Columns = () => {
+    return {
+        type: ACTION_TYPES.CHANGE_COLUMN_NUM,
+        payload: true
+    }
+}
+
 export const actAddToCart = (item) => {
     return {
         type: ACTION_TYPES.ADD_TO_CART,
-        payload: {...item, count: 1}
+        payload: item
     }
 }
 
@@ -49,16 +63,3 @@ export const actRemove = (idx) => {
     }
 }
 
-export const act4Columns = () => {
-    return {
-        type: ACTION_TYPES.CHANGE_COLUMN_NUM,
-        payload: false
-    }
-}
-
-export const act3Columns = () => {
-    return {
-        type: ACTION_TYPES.CHANGE_COLUMN_NUM,
-        payload: true
-    }
-}

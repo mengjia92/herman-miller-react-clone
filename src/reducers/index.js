@@ -28,40 +28,45 @@ const switchColumnNumReducer = (state=INITIAL_STATE, action) => {
 }
 
 const cartReducer = (state=INITIAL_STATE, action) => {
-    const products = state.itemsInCart;
     let updatedQty = state.quantity;
 
     switch (action.type) {
         case ACTION_TYPES.ADD_TO_CART:
-            updatedQty++;
-            if (products.length === 0) {
-                products.push(action.payload);
-            } else {
-                let idx = products.findIndex((item) => {
-                    return item.id === action.payload.id
+            updatedQty += action.payload.qty;
+            let cartArr = JSON.parse(localStorage.getItem("cartArr"));
+            if (cartArr) {
+                let idx = cartArr.findIndex((item) => {
+                    return item.chairObj.id === action.payload.chairObj.id
                 });
                 if (idx === -1) {
-                    products.push(action.payload);
+                    cartArr.push(action.payload);
                 } else {
-                    products[idx].count++;
+                    if (JSON.stringify(cartArr[idx].checkedIdx) === JSON.stringify(action.payload.checkedIdx)) {
+                        cartArr[idx].qty += action.payload.qty;
+                    } else {
+                        cartArr.push(action.payload);
+                    }
                 }
+                localStorage.setItem("cartArr", JSON.stringify(cartArr))
+            } else {
+                localStorage.setItem("cartArr", JSON.stringify([action.payload]))
             }
-            return {...state, itemsInCart: products, quantity: updatedQty}
-        case ACTION_TYPES.INCREMENT:
-            updatedQty++;
-            products[action.payload].count++;
-            return {...state, itemsInCart: products, quantity: updatedQty}
-        case ACTION_TYPES.DECREMENT:
-            updatedQty--;
-            products[action.payload].count--;
-            if (products[action.payload].count === 0) {
-                products.splice(action.payload, 1);
-            }
-            return {...state, itemsInCart: products, quantity: updatedQty}
-        case ACTION_TYPES.REMOVE:
-            updatedQty -= products[action.payload].count;
-            products.splice(action.payload, 1);
-            return {...state, itemsInCart: products, quantity: updatedQty}
+            return {...state, itemsInCart: JSON.parse(localStorage.getItem("cartArr")), quantity: updatedQty}
+        // case ACTION_TYPES.INCREMENT:
+        //     updatedQty++;
+        //     products[action.payload].count++;
+        //     return {...state, itemsInCart: products, quantity: updatedQty}
+        // case ACTION_TYPES.DECREMENT:
+        //     updatedQty--;
+        //     products[action.payload].count--;
+        //     if (products[action.payload].count === 0) {
+        //         products.splice(action.payload, 1);
+        //     }
+        //     return {...state, itemsInCart: products, quantity: updatedQty}
+        // case ACTION_TYPES.REMOVE:
+        //     updatedQty -= products[action.payload].count;
+        //     products.splice(action.payload, 1);
+        //     return {...state, itemsInCart: products, quantity: updatedQty}
         default:
             return state;
     }

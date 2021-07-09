@@ -7,6 +7,9 @@ import {formatter} from "../../helper";
 
 class SingleChairPage extends Component {
     state = {
+        checkedIdx: [],
+        checkedPrice: [],
+        chairObj: {},
         currImgIdx: 0,
         isScaled: false
     }
@@ -14,6 +17,30 @@ class SingleChairPage extends Component {
     componentDidMount() {
         let id = this.props.match.params.id;
         this.props.actFetchSingleChair(id);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.singleChair !== this.props.singleChair) {
+            let chairObj = this.props.singleChair;
+
+            if (chairObj.profileCategories) {
+                let tempIdx = [],
+                    tempPrice = [];
+                for (let i = 0; i < chairObj?.profileCategories?.length; i++ ) {
+                    for (let j = 0; j < chairObj?.profileCategories[i]?.profileItems.length; j++) {
+                        if (chairObj.profileCategories[i].profileItems[j].checked) {
+                            tempIdx.push(j);
+                            tempPrice.push(chairObj.profileCategories[i].profileItems[j].price)
+                        }
+                    }
+                }
+                this.setState({
+                    checkedIdx: tempIdx,
+                    checkedPrice: tempPrice,
+                    chairObj: chairObj
+                })
+            }
+        }
     }
 
     selectImg = (i) => {
@@ -27,6 +54,22 @@ class SingleChairPage extends Component {
             isScaled: !this.state.isScaled
         })}
 
+    selectMaterials = (idx, price, idx1) => {
+        let updatedIdx = this.state.checkedIdx,
+            updatedPrice = this.state.checkedPrice,
+            updatedObj = this.state.chairObj;
+        updatedIdx[idx] = idx1;
+        updatedPrice[idx] = price;
+
+        for (let i = 0; i < updatedObj?.profileCategories?.length; i++) {
+            for (let j = 0; j < updatedObj?.profileCategories[i]?.profileItems?.length; j++) {
+                j === updatedIdx[idx] ? updatedObj.profileCategories[i].profileItems[j].checked = true :
+                    updatedObj.profileCategories[i].profileItems[j].checked = false
+            }
+        }
+        this.setState({chairObj: updatedObj})
+    }
+
 
     render() {
         let item = this.props.singleChair?.profileCategories,
@@ -34,7 +77,6 @@ class SingleChairPage extends Component {
         for (let i = 0; i < item?.length; i++) {
             for (let j = 0; j < item[i]?.profileItems?.length; j++) {
                 if (item[i].profileItems[j].checked) {
-                    console.log(item[i].profileItems[j].price)
                     customizedSum += Number(item[i].profileItems[j].price);
                 }
             }
@@ -112,9 +154,10 @@ class SingleChairPage extends Component {
                                                 <div>
                                                     {item.profileItems?.map((item1, idx1) => {
                                                         return (
-                                                            <div key={idx1} className="selectable">
+                                                            <div key={idx1} className="selectable"
+                                                                 onClick={() => this.selectMaterials(idx, item1.price, idx1)}>
                                                                 <span>
-                                                                    {item1.checked ?
+                                                                    {idx1 === this.state.checkedIdx[idx] ?
                                                                         <i className="fas fa-check-circle" style={{color: "green"}}/> : <i className="far fa-circle"/>}
                                                                 </span>
                                                                 <span style={{fontSize: "15px"}}>{item1.name}</span>
@@ -158,7 +201,9 @@ class SingleChairPage extends Component {
                         </div>
                     </div>
                 </div>
-                <BottomCart chairName={this.props.singleChair.name} subtotal={customizedSum + Number(this.props.singleChair.price)}/>
+                <BottomCart chairName={this.props.singleChair.name}
+                            singleChairState = {this.state}
+                            subtotal={customizedSum + Number(this.props.singleChair.price)}/>
             </div>
         )
     }
