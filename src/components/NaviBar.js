@@ -1,10 +1,19 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import "../HMChairs.css";
 import {Link} from "react-router-dom";
 import logo from "../assets/HMlogo.png";
 import ShoppingCart from "./cart/ShoppingCart";
+import {actSignOut} from "../actions";
+
 
 class NaviBar extends Component {
+
+    signOut = () => {
+        this.props.actSignOut();
+        localStorage.removeItem("userCredential");
+    }
+
     render() {
         return (
             <div className="naviBar">
@@ -14,7 +23,6 @@ class NaviBar extends Component {
                         <span style={{margin: "0 13px"}}><i className="fas fa-search"/></span>
                         <input className="searchBar" type="search" placeholder="Search"/>
                     </div>
-
                 </div>
                 <div style={{width: "60%"}}>
                     <div className="naviBarCenter">
@@ -31,10 +39,19 @@ class NaviBar extends Component {
                 <div className="naviBarRight">
                     <div className="user-account-dropdown">
                         <i className="fas fa-user" style={{cursor: "pointer"}}/>
-                        <div className="user-account-dropdown-content">
-                            <span className="account-btn">Login</span>
-                            <span className="account-btn">Register</span>
-                        </div>
+                        {this.props.isSignedIn ?
+                            <div className="user-account-dropdown-content">
+                                <Link to="/login" style={{color: "black", textDecoration: "none"}}>
+                                    <span className="account-btn" onClick={this.signOut}>Sign Out</span>
+                                </Link>
+                            </div>
+                            : <div className="user-account-dropdown-content">
+                                <Link to="/login" style={{color: "black", textDecoration: "none"}}>
+                                    <span className="account-btn">Sign In</span>
+                                </Link>
+                                <span className="account-btn">Register</span>
+                            </div>
+                        }
                     </div>
                     <i className="fas fa-heart" style={{cursor: "pointer"}}/>
                     <ShoppingCart/>
@@ -44,4 +61,11 @@ class NaviBar extends Component {
     }
 }
 
-export default NaviBar;
+const mapStateToProps = (state) => {
+    return {
+        user: state.userReducer.userCredential,
+        isSignedIn: state.userReducer.isSignedIn
+    }
+}
+
+export default connect(mapStateToProps, {actSignOut})(NaviBar);

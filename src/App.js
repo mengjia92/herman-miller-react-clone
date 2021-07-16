@@ -7,9 +7,10 @@ import CartPage from "./components/cart/CartPage";
 import NaviBar from "./components/NaviBar";
 import PromoBanner from "./components/PromoBanner";
 import SingleChairPage from "./components/singleChair/SingleChairPage";
+import LoginPage from "./components/login/LoginPage";
 
 function App() {
-  return (
+    return (
     <div>
         <BrowserRouter>
             <PromoBanner/>
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/" exact component={HomePage}/>
                 <Route path="/product/:id" exact component={SingleChairPage}/>
                 <Route path="/cart" exact component={CartPage}/>
+                <Route path="/login" exact component={LoginPage}/>
             </div>
             <FooterArea/>
         </BrowserRouter>

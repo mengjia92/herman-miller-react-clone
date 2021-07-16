@@ -1,12 +1,15 @@
 import {combineReducers} from "redux";
 import {ACTION_TYPES} from "../helper";
+import { reducer as formReducer } from "redux-form";
 
 const INITIAL_STATE = {
     allChairData: [],
     singleChairData: {},
     changeColumns: false,
     itemsInCart: [],
-    quantity: 0
+    quantity: 0,
+    userCredential: null,
+    isSignedIn: false
 }
 
 const fetchChairDataReducer = (state=INITIAL_STATE, action) => {
@@ -52,28 +55,44 @@ const cartReducer = (state=INITIAL_STATE, action) => {
                 localStorage.setItem("cartArr", JSON.stringify([action.payload]))
             }
             return {...state, itemsInCart: JSON.parse(localStorage.getItem("cartArr")), quantity: updatedQty}
-        // case ACTION_TYPES.INCREMENT:
-        //     updatedQty++;
-        //     products[action.payload].count++;
-        //     return {...state, itemsInCart: products, quantity: updatedQty}
-        // case ACTION_TYPES.DECREMENT:
-        //     updatedQty--;
-        //     products[action.payload].count--;
-        //     if (products[action.payload].count === 0) {
-        //         products.splice(action.payload, 1);
-        //     }
-        //     return {...state, itemsInCart: products, quantity: updatedQty}
-        // case ACTION_TYPES.REMOVE:
-        //     updatedQty -= products[action.payload].count;
-        //     products.splice(action.payload, 1);
-        //     return {...state, itemsInCart: products, quantity: updatedQty}
+        case ACTION_TYPES.CHANGE_QTY:
+            let cartArr1 = JSON.parse(localStorage.getItem("cartArr"));
+            cartArr1 = cartArr1.map((item, idx) => {
+                if (idx === action.payload.idx) {
+                    updatedQty = updatedQty - item.qty + Number(action.payload.qty);
+                    item.qty = action.payload.qty
+                    return item
+                } else {
+                    return item
+                }})
+            localStorage.setItem("cartArr", JSON.stringify(cartArr1))
+            return {...state, itemsInCart: JSON.parse(localStorage.getItem("cartArr")), quantity: updatedQty}
+        case ACTION_TYPES.REMOVE:
+            let cartArr2 = JSON.parse(localStorage.getItem("cartArr"));
+            updatedQty -= cartArr2[action.payload].qty;
+            cartArr2.splice(action.payload, 1);
+            localStorage.setItem("cartArr", JSON.stringify(cartArr2));
+            return {...state, itemsInCart: JSON.parse(localStorage.getItem("cartArr")), quantity: updatedQty}
         default:
             return state;
+    }
+}
+
+const userReducer = (state=INITIAL_STATE, action) => {
+    switch (action.type) {
+        case ACTION_TYPES.FETCH_USER:
+            return {...state, userCredential: action.payload, isSignedIn: true}
+        case ACTION_TYPES.SIGN_OUT:
+            return {...state, isSignedIn: false}
+        default:
+            return state
     }
 }
 
 export default combineReducers({
     fetchChairDataReducer,
     switchColumnNumReducer,
-    cartReducer
+    cartReducer,
+    form: formReducer,
+    userReducer
 })

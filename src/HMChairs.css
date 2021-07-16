@@ -227,7 +227,7 @@ h1 {
     left: -100px;
     background-color: white;
     padding: 20px 0 20px 10px;
-    margin-top: 5px;
+    /*margin-top: 5px;*/
     text-align: left;
     min-width: 100px;
     z-index: 1;
@@ -545,6 +545,27 @@ input[type="checkbox"]:checked + label:before {
     font-size: 60px;
 }
 
+.button-row {
+    width: 40%;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+}
+
+.checkoutBtn.continue-shopping-btn {
+    width: 90%;
+    color: black;
+    background-color: transparent;
+    border: 2px solid black;
+}
+
+.checkoutBtn.continue-shopping-btn:hover {
+    background-color: black;
+    color: white;
+    opacity: 1;
+}
+
 .cartContent {
     width: 70%;
     border-top: 1px solid lightgrey;
@@ -558,8 +579,8 @@ input[type="checkbox"]:checked + label:before {
 }
 
 .imgThumbnail {
-    height: 200px;
-    width: 150px;
+    /*height: 200px;*/
+    width: 18%;
     object-fit: cover;
 }
 
@@ -567,7 +588,7 @@ input[type="checkbox"]:checked + label:before {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    width: 25%;
+    /*width: 25%;*/
     height: 50px;
     align-items: center;
 }
@@ -681,8 +702,7 @@ input[type="checkbox"]:checked + label:before {
 }
 
 .checkoutBtn:hover {
-    background-color: lightgrey;
-    color: black;
+    opacity: 0.6;
     cursor: pointer;
 }
 
@@ -896,5 +916,69 @@ input[type="checkbox"]:checked + label:before {
     text-decoration: underline;
     color: rgba(128, 128, 128, 0.9);
     font-size: 18px;
+}
+
+
+/*--------------------------- Log In Page -------------------------*/
+.form-container {
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    margin-top: 1%;
+    width: 300px;
+    border-radius: 2px;
+    border: 2px solid lightgrey;
+}
+
+.login-box {
+    margin: 15%;
+    font-size: 15px;
+}
+
+.login-title {
+    font-size: 28px;
+    font-weight: bold;
+    border-bottom: 1px solid lightgrey;
+}
+
+.text-box {
+    margin-top: 5px;
+    border: 1px solid;
+    border-radius: 2px;
+    height: 30px;
+    padding: 0 5px;
+    width: 94.5%;
+}
+
+.text-box:hover {
+    cursor: text;
+    border: 2px solid;
+    margin: 4px -1px -1px -1px;
+}
+
+.validation-error {
+    color: #e22d00;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: italic
+}
+
+.sign-in-btn {
+    color: white;
+    margin-top: 20px;
+    background-color: black;
+    height: 40px;
+    width: 100%;
+    border: 0;
+    font-size: 16px;
+    border-radius: 2px;
+}
+
+.sign-in-btn:hover {
+    cursor: pointer;
+    opacity: 0.7;
 }
 
