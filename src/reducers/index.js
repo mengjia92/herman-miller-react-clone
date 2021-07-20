@@ -9,7 +9,11 @@ const INITIAL_STATE = {
     itemsInCart: [],
     quantity: 0,
     userCredential: null,
-    isSignedIn: false
+    isSignedIn: false,
+    orderStatus: false,
+    reLogin:false,
+    loading:false,
+    backToPage:false
 }
 
 const fetchChairDataReducer = (state=INITIAL_STATE, action) => {
@@ -55,6 +59,8 @@ const cartReducer = (state=INITIAL_STATE, action) => {
                 localStorage.setItem("cartArr", JSON.stringify([action.payload]))
             }
             return {...state, itemsInCart: JSON.parse(localStorage.getItem("cartArr")), quantity: updatedQty}
+        case ACTION_TYPES.FETCH_CART:
+            return {...state, itemsInCart: JSON.parse(localStorage.getItem("cartArr")), quantity: updatedQty}
         case ACTION_TYPES.CHANGE_QTY:
             let cartArr1 = JSON.parse(localStorage.getItem("cartArr"));
             cartArr1 = cartArr1.map((item, idx) => {
@@ -89,10 +95,38 @@ const userReducer = (state=INITIAL_STATE, action) => {
     }
 }
 
+const orderReducer = (state = INITIAL_STATE, action) => {
+    switch (action.type){
+        case ACTION_TYPES.CREATING_ORDER:
+            console.log("what is fetching", state.loading)
+            return {...state, loading: true}
+        case ACTION_TYPES.CREATE_ORDER_SUCCESS:
+            return {...state,
+                orderStatus: true,
+                loading: false,
+                backToPage: false
+            }
+        case ACTION_TYPES.RE_LOGIN:
+            return {...state,
+                reLogin: true
+            }
+        case ACTION_TYPES.CHECKOUT_SUCCESS:
+            return {
+                ...state,
+                orderStatus: false,
+                backToPage: true
+            }
+        default:
+            return state
+    }
+}
+
+
 export default combineReducers({
     fetchChairDataReducer,
     switchColumnNumReducer,
     cartReducer,
     form: formReducer,
-    userReducer
+    userReducer,
+    orderReducer
 })

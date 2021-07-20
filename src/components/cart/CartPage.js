@@ -3,9 +3,33 @@ import {connect} from "react-redux";
 import CartContent from "./CartContent";
 import "../../HMChairs.css";
 import {Link} from "react-router-dom";
+import {actCreateOrder, actFetchCart} from "../../actions";
 
 
 class CartPage extends Component {
+    state = {
+        refresh: false
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('update-24', prevProps)
+        if (prevProps.backToPage !== this.props.backToPage) {
+            this.props.actFetchCart();
+            this.setState({refresh: !this.state.refresh})
+        }
+        if (prevProps.reLogin !== this.props.reLogin) {
+            this.props.history.push('/login')
+        }
+    }
+
+    checkout = () => {
+        if (localStorage.getItem("TOKEN")) {
+            this.props.actCreateOrder(this.props.cartData)
+        } else {
+            this.props.history.push('/login')
+        }
+    }
+
 
     renderCartHeader() {
         return (
@@ -37,7 +61,7 @@ class CartPage extends Component {
                     </div>
                     : <div>
                         {this.renderCartHeader()}
-                        <CartContent/>
+                        <CartContent checkout={this.checkout}/>
                     </div>
                 }
             </div>
@@ -48,8 +72,10 @@ class CartPage extends Component {
 const mapStateToProps = (state) => {
     return {
         cartData: state.cartReducer.itemsInCart,
-        isSignedIn: state.userReducer.isSignedIn
+        isSignedIn: state.userReducer.isSignedIn,
+        backToPage: state.orderReducer.backToPage,
+        reLogin: state.orderReducer.reLogin,
     }
 }
 
-export default connect(mapStateToProps)(CartPage);
+export default connect(mapStateToProps, {actCreateOrder, actFetchCart})(CartPage);

@@ -1,18 +1,27 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import "../../HMChairs.css";
-import {actChangeQty, actRemove} from "../../actions";
+import {actChangeQty, actRemove, actFetchCart, actPayment, actCreateOrder, actTest} from "../../actions";
 import {formatter} from "../../helper";
 import {Link} from "react-router-dom";
+import Payment from "../payment";
 
 
 class CartContent extends Component {
+    componentDidMount() {
+        this.props.actFetchCart();
+    }
 
     changeQty = (idx, qty) => {
         this.props.actChangeQty(idx, qty)
     }
 
+    test = () => {
+        this.props.actTest();
+    }
+
     render() {
+        console.log(this.props.cartData)
         let subtotal = this.props.calculateTotal();
 
         return (
@@ -94,11 +103,21 @@ class CartContent extends Component {
                         <span className="total">TOTAL</span>
                         <span className="total right">{"C" + formatter.format(subtotal * 1.13)}</span>
                     </div>
-                    <button className="checkoutBtn">{this.props.isSignedIn ? "Checkout"
-                        : <Link to="/login" style={{color: "white", textDecoration: "none"}}>
-                            Sign In
-                        </Link>}
-                    </button>
+                    {this.props.cartData === null || this.props.cartData === [] ? ""
+                        : <div>
+                            {this.props.orderStatus === false ?
+                                <div>{this.props.isSignedIn ?
+                                    <button className="checkoutBtn" onClick={() => this.props.checkout()}>Checkout</button>
+                                    : <button className="checkoutBtn">
+                                        <Link to="/login" style={{color: "white", textDecoration: "none"}}>
+                                            Sign In
+                                        </Link>
+                                    </button>
+                                }</div>
+                            : <Payment/>
+                        }
+                    </div>
+                    }
                 </div>
             </div>
         );
@@ -109,6 +128,10 @@ const mapStateToProps = (state) => {
     return {
         cartData: state.cartReducer.itemsInCart,
         isSignedIn: state.userReducer.isSignedIn,
+        orderStatus: state.orderReducer.orderStatus,
+        loading: state.orderReducer.loading,
+        backToPage: state.orderReducer.backToPage,
+        reLogin: state.orderReducer.reLogin,
 
         calculateTotal() {
             let total = 0;
@@ -120,4 +143,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {actChangeQty, actRemove})(CartContent);
+export default connect(mapStateToProps, {actChangeQty, actRemove, actFetchCart, actPayment, actCreateOrder, actTest})(CartContent);
