@@ -18,9 +18,10 @@ class Payment extends Component {
             // Customize button (optional)
             locale: 'en_US',
             style: {
-                size: 'medium',
-                color: 'white',
+                size: 'large',
+                color: 'gold',
                 shape: 'pill',
+                label: "checkout",
                 // layout: 'vertical',
                 fundingicons: 'true',
             },
@@ -114,7 +115,7 @@ class Payment extends Component {
 
     render() {
         return (
-            <div>paypal</div>
+            <div id="paypal-button"/>
         )
     }
 }

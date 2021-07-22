@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import "../../HMChairs.css";
-import {actChangeQty, actRemove, actFetchCart, actPayment, actCreateOrder, actTest} from "../../actions";
+import {actChangeQty, actRemove, actFetchCart, actPayment, actCreateOrder} from "../../actions";
 import {formatter} from "../../helper";
 import {Link} from "react-router-dom";
 import Payment from "../payment";
@@ -16,12 +16,8 @@ class CartContent extends Component {
         this.props.actChangeQty(idx, qty)
     }
 
-    test = () => {
-        this.props.actTest();
-    }
 
     render() {
-        console.log(this.props.cartData)
         let subtotal = this.props.calculateTotal();
 
         return (
@@ -103,20 +99,39 @@ class CartContent extends Component {
                         <span className="total">TOTAL</span>
                         <span className="total right">{"C" + formatter.format(subtotal * 1.13)}</span>
                     </div>
+                    {/*{this.props.cartData === null || this.props.cartData === [] ? ""*/}
+                    {/*    : <div>*/}
+                    {/*        {this.props.orderStatus === false ?*/}
+                    {/*            <div>{this.props.isSignedIn ?*/}
+                    {/*                <button className="checkoutBtn" onClick={() => this.props.checkout()}>*/}
+                    {/*                    {this.props.loading === true ? "Please wait..." : "Checkout"}*/}
+                    {/*                </button>*/}
+                    {/*                : <button className="checkoutBtn">*/}
+                    {/*                    <Link to="/login" style={{color: "white", textDecoration: "none"}}>*/}
+                    {/*                        Sign In*/}
+                    {/*                    </Link>*/}
+                    {/*                </button>*/}
+                    {/*            }</div>*/}
+                    {/*        : <Payment/>*/}
+                    {/*    }*/}
+                    {/*</div>*/}
+                    {/*}*/}
                     {this.props.cartData === null || this.props.cartData === [] ? ""
                         : <div>
-                            {this.props.orderStatus === false ?
-                                <div>{this.props.isSignedIn ?
-                                    <button className="checkoutBtn" onClick={() => this.props.checkout()}>Checkout</button>
-                                    : <button className="checkoutBtn">
-                                        <Link to="/login" style={{color: "white", textDecoration: "none"}}>
-                                            Sign In
-                                        </Link>
+                            {this.props.isSignedIn ?
+                                <div>{this.props.orderStatus === false ?
+                                    <button className="checkoutBtn" onClick={() => this.props.checkout()}>
+                                        {this.props.loading === true ? "Please wait..." : "Checkout"}
                                     </button>
+                                    : <Payment/>
                                 }</div>
-                            : <Payment/>
-                        }
-                    </div>
+                                : <button className="checkoutBtn">
+                                    <Link to="/login" style={{color: "white", textDecoration: "none"}}>
+                                        Sign In
+                                    </Link>
+                                </button>
+                            }
+                        </div>
                     }
                 </div>
             </div>
@@ -143,4 +158,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {actChangeQty, actRemove, actFetchCart, actPayment, actCreateOrder, actTest})(CartContent);
+export default connect(mapStateToProps, {actChangeQty, actRemove, actFetchCart, actPayment, actCreateOrder})(CartContent);

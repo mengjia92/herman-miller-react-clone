@@ -72,7 +72,7 @@ export const actLogin = (values) => {
                 type: ACTION_TYPES.FETCH_USER,
                 payload: res.data.data
             });
-            localStorage.setItem("TOKEN", JSON.stringify(res.data.data.token))
+            localStorage.setItem("TOKEN", res.data.data.token)
             localStorage.setItem("USER", JSON.stringify(res.data.data.user))
             window.history.go(-1)
         } catch(e) {
@@ -117,57 +117,43 @@ export const actCreateOrder = (order) => (dispatch) =>{
     })
     console.log('Loooooooooooong', patch)
     const token = localStorage.getItem("TOKEN")
+    // console.log(token)
 
-    return (
-        axios.post(`${BASE_URL}/order`, patch, {headers:{"Authorization":`bearer ${token}`}})
-            .then (res => {
-                console.log(res.data)
+    return(
+        axios.post(`${BASE_URL}/order`, patch, {headers:{"Authorization": `bear ${token}`}})
+            .then(res => {
+                if (res.data.code === 8241){
+                    dispatch({
+                        type: ACTION_TYPES.RE_LOGIN,
+                        payload:res.data
+                    })
+                } else{
+                    console.log(`${ACTION_TYPES.CREATE_ORDER_SUCCESS}`, res)
+                    console.log(`${ACTION_TYPES.CREATE_ORDER_SUCCESS}`, res.data.data.id)
+                    localStorage.setItem(ACTION_TYPES.ORDER_STORAGE, JSON.stringify(res.data.data.id))
+                    dispatch({
+                        type:ACTION_TYPES.CREATE_ORDER_SUCCESS,
+                        payload:res
+                    })
+                }
+
+            }).catch(error =>{
+            if (error.response.data.code === 8241){
+                //8241 means token has expired
+                localStorage.removeItem("TOKEN")
                 dispatch({
                     type: ACTION_TYPES.RE_LOGIN,
-                    payload:res.data
+                    payload:error.response.data
                 })
-            })
-            .catch(error => {
-                console.log(error.response)
-            })
+            } else {
+                console.log(`${ACTION_TYPES.CREATE_ORDER_FAILED}`,error.response)
+                dispatch({
+                    type: ACTION_TYPES.CREATE_ORDER_FAILED,
+                    payload:error.response
+                })
+            }
+        })
     )
-
-    // return(
-    //     axios.post(`${BASE_URL}/order`, patch, {headers:{"Authorization":`bearer ${token}`}})
-    //         .then(res => {
-    //             if (res.data.code === 8241){
-    //                 dispatch({
-    //                     type: ACTION_TYPES.RE_LOGIN,
-    //                     payload:res.data
-    //                 })
-    //             } else{
-    //                 console.log(`${ACTION_TYPES.CREATE_ORDER_SUCCESS}`, res)
-    //                 console.log(`${ACTION_TYPES.CREATE_ORDER_SUCCESS}`, res.data.data.id)
-    //                 localStorage.setItem(ACTION_TYPES.ORDER_STORAGE, JSON.stringify(res.data.data.id))
-    //                 dispatch({
-    //                     type:ACTION_TYPES.CREATE_ORDER_SUCCESS,
-    //                     payload:res
-    //                 })
-    //             }
-    //
-    //         }).catch(error =>{
-    //         if (error.response.data.code === 8241){
-    //             //8241 means token has expired
-    //             localStorage.removeItem("TOKEN")
-    //             dispatch({
-    //                 type: ACTION_TYPES.RE_LOGIN,
-    //                 payload:error.response.data
-    //             })
-    //         } else {
-    //             console.log(`${ACTION_TYPES.CREATE_ORDER_FAILED}`,error.response)
-    //             dispatch({
-    //                 type: ACTION_TYPES.CREATE_ORDER_FAILED,
-    //                 payload:error.response
-    //             })
-    //         }
-    //     })
-    // )
-
 }
 
 
@@ -183,14 +169,15 @@ export const actPayment = (res, order) => {
     data.transactionId = res.id;
     data.amount = parseFloat(res.transactions.map(a => a.amount.total));
     data.notes = "placeholder";
-    const token = localStorage.getItem("TOKEN");
+
+    const token = localStorage.getItem("TOKEN")
+    // console.log(token)
 
     return (dispatch) => {
-
-        axios.post(`${BASE_URL}/payment`, data, {headers:{"Authorization":`bearer ${token}`}})
+        axios.post(`${BASE_URL}/payment`, data, {headers:{"Authorization": `bear ${token}`}})
             .then(res => {
                 //routerHistory.push("/")
-                localStorage.removeItem("cartArr")
+                localStorage.setItem("cartArr", JSON.stringify([]))
                 console.log(`${ACTION_TYPES.CHECKOUT_SUCCESS}`, res)
                 dispatch({
                     type:ACTION_TYPES.CHECKOUT_SUCCESS,
@@ -206,39 +193,4 @@ export const actPayment = (res, order) => {
     }
 }
 
-export const actTest = () => {
-
-
-    const patch = {
-        taxRate: 1.13,
-        isActive: true,
-        isDelete: false,
-        orderItems: [
-            {
-                quantity: 1,
-                product: 2,
-                profileItems: [2, 7, 10, 13, 15, 17, 20]
-            }
-        ]
-    }
-
-    console.log(typeof patch)
-
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJtYXJreHVAbWFyazJ3aW4uY29tIiwicGFzc3dvcmQiOiIkMmEkMDgkSU5FcUZxNFFkbkJtM0Z3cjg2MS41ZVIuZjdMakZYRU03SktBeXRWWlVUclBndDVkcXFOeU8iLCJpYXQiOjE2MjY3OTE1ODYsImV4cCI6MTYyNjc5ODc4Nn0.VTSNykrLCla4c-jMsCyrrS5z0-246slHhbR2yEnVsIc"
-
-    return (dispatch) => {
-        axios.post(`${BASE_URL}/order`, patch, {headers:{"Authorization":`bearer ${token}`}})
-            .then (res => {
-                console.log(res.data)
-                dispatch({
-                    type: ACTION_TYPES.RE_LOGIN,
-                    payload:res.data
-                })
-            })
-            .catch(error => {
-                console.log(error.response)
-            })
-    }
-
-}
 

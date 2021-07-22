@@ -79,6 +79,8 @@ const cartReducer = (state=INITIAL_STATE, action) => {
             cartArr2.splice(action.payload, 1);
             localStorage.setItem("cartArr", JSON.stringify(cartArr2));
             return {...state, itemsInCart: JSON.parse(localStorage.getItem("cartArr")), quantity: updatedQty}
+        case ACTION_TYPES.CHECKOUT_SUCCESS:
+            return {...state, quantity: 0}
         default:
             return state;
     }
