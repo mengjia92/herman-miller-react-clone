@@ -39,11 +39,6 @@ class ChairListContent extends Component {
                                     <div className="foo grey"/>
                                 </div>
                                 <span style={{color: "red"}}>Free Shipping on Everything</span>
-
-                                {/*<button className="cartBtn"*/}
-                                {/*        onClick={() => this.props.actAddToCart(item)}>*/}
-                                {/*    Add to Cart*/}
-                                {/*</button>*/}
                             </div>
                         </div>
                     )

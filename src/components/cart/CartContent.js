@@ -99,23 +99,7 @@ class CartContent extends Component {
                         <span className="total">TOTAL</span>
                         <span className="total right">{"C" + formatter.format(subtotal * 1.13)}</span>
                     </div>
-                    {/*{this.props.cartData === null || this.props.cartData === [] ? ""*/}
-                    {/*    : <div>*/}
-                    {/*        {this.props.orderStatus === false ?*/}
-                    {/*            <div>{this.props.isSignedIn ?*/}
-                    {/*                <button className="checkoutBtn" onClick={() => this.props.checkout()}>*/}
-                    {/*                    {this.props.loading === true ? "Please wait..." : "Checkout"}*/}
-                    {/*                </button>*/}
-                    {/*                : <button className="checkoutBtn">*/}
-                    {/*                    <Link to="/login" style={{color: "white", textDecoration: "none"}}>*/}
-                    {/*                        Sign In*/}
-                    {/*                    </Link>*/}
-                    {/*                </button>*/}
-                    {/*            }</div>*/}
-                    {/*        : <Payment/>*/}
-                    {/*    }*/}
-                    {/*</div>*/}
-                    {/*}*/}
+
                     {this.props.cartData === null || this.props.cartData === [] ? ""
                         : <div>
                             {this.props.isSignedIn ?

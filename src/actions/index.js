@@ -161,8 +161,7 @@ export const actPayment = (res, order) => {
     console.log("payment results", res);
     let data = {};
     data.order = []
-    // let cartArr = JSON.parse(localStorage.getItem("cartArr"));
-    console.log(JSON.parse(localStorage.getItem(ACTION_TYPES.ORDER_STORAGE)))
+    // console.log(JSON.parse(localStorage.getItem(ACTION_TYPES.ORDER_STORAGE)))
     data.order[0] = JSON.parse(localStorage.getItem(ACTION_TYPES.ORDER_STORAGE))
     data.gateway = res.payer.payment_method;
     data.status = res.state;
@@ -171,7 +170,6 @@ export const actPayment = (res, order) => {
     data.notes = "placeholder";
 
     const token = localStorage.getItem("TOKEN")
-    // console.log(token)
 
     return (dispatch) => {
         axios.post(`${BASE_URL}/payment`, data, {headers:{"Authorization": `bear ${token}`}})
